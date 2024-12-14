@@ -128,7 +128,7 @@
 <body>
 
   <div class="container">
-    <h1>Customer Payroll</h1>
+    <h1>Organization Management</h1>
 
     <% if (success && success.length > 0) { %>
       <div class="alert alert-success"><%= success %></div>
@@ -137,7 +137,7 @@
       <div class="alert alert-error"><%= error %></div>
     <% } %>
 
-    <h2>Add New Customer to Payroll</h2>
+    <h2>Add New Organization to Payroll</h2>
     <form method="POST" action="/customers/add">
       <input type="text" name="name" placeholder="Customer Name" required>
       <select name="payment_type" required>
@@ -147,10 +147,10 @@
         <option value="hourly">Hourly</option>
       </select>
       <input type="number" name="payment_amount" placeholder="Payment Amount" required>
-      <button type="submit">Add Customer</button>
+      <button type="submit">Add Organization</button>
     </form>
 
-    <h2>Customer List</h2>
+    <h2>Organization List</h2>
     <table>
       <thead>
         <tr>

@@ -159,7 +159,7 @@
 
       <!-- Customer (Organization) Selection -->
       <select name="customer_id" required>
-        <option value="">Select Customer</option>
+        <option value="">Select Organization</option>
         <% allCustomers.forEach(customer => { %>
           <option value="<%= customer.id %>"><%= customer.name %></option>
         <% }) %>
@@ -178,7 +178,7 @@
           <th>Email</th>
           <th>Salary</th>
           <th>Department</th>
-          <th>Customer</th>
+          <th>Organization</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -190,7 +190,7 @@
             <td><%= employee.email %></td>
             <td><%= employee.salary %></td>
             <td><%= employee.department %></td>
-            <td><%= employee.Customer ? employee.Customer.name : 'No Customer' %></td>
+            <td><%= employee.Customer ? employee.Customer.name : 'No Organization' %></td>
             <td>
               <!-- Pay button -->
               <form method="POST" action="/employees/pay/<%= employee.id %>">
