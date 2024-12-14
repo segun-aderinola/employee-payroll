@@ -4,55 +4,175 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Customer Payroll</title>
-  <link rel="stylesheet" href="styles.css"> <!-- Add your CSS file if needed -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding-top: 30px;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 1000px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .alert {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .alert-error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    /* Form styling */
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    input, select {
+      width: calc(50% - 10px); /* Two columns for input fields */
+    }
+
+    button {
+      width: auto;
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Customer List Table Styling */
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    table th, table td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #f2f2f2;
+      color: #555;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+
+      input, select {
+        width: 100%;
+      }
+    }
+
+  </style>
 </head>
 <body>
-  <h1>Customer Payroll</h1>
 
-  <!-- Display success or error messages -->
-  <% if (success) { %>
-    <div class="alert alert-success"><%= success %></div>
-  <% } %>
-  <% if (error) { %>
-    <div class="alert alert-error"><%= error %></div>
-  <% } %>
+  <div class="container">
+    <h1>Customer Payroll</h1>
 
-  <!-- Add New Customer to Payroll Form -->
-  <h2>Add New Customer to Payroll</h2>
-  <form method="POST" action="/customers/add">
-    <input type="text" name="name" placeholder="Customer Name" required>
-    <select name="payment_type" required>
-      <option value="">Select Payment Type</option>
-      <option value="monthly">Monthly</option>
-      <option value="weekly">Weekly</option>
-      <option value="hourly">Hourly</option>
-    </select>
-    <input type="number" name="payment_amount" placeholder="Payment Amount" required>
-    <button type="submit">Add Customer</button>
-  </form>
+    <% if (success && success.length > 0) { %>
+      <div class="alert alert-success"><%= success %></div>
+    <% } %>
+    <% if (error && error.length > 0) { %>
+      <div class="alert alert-error"><%= error %></div>
+    <% } %>
 
-  <!-- Customer List Table -->
-  <h2>Customer List</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Payment Type</th>
-        <th>Payment Amount</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% customers.forEach(customer => { %>
+    <h2>Add New Customer to Payroll</h2>
+    <form method="POST" action="/customers/add">
+      <input type="text" name="name" placeholder="Customer Name" required>
+      <select name="payment_type" required>
+        <option value="">Select Payment Type</option>
+        <option value="monthly">Monthly</option>
+        <option value="weekly">Weekly</option>
+        <option value="hourly">Hourly</option>
+      </select>
+      <input type="number" name="payment_amount" placeholder="Payment Amount" required>
+      <button type="submit">Add Customer</button>
+    </form>
+
+    <h2>Customer List</h2>
+    <table>
+      <thead>
         <tr>
-          <td><%= customer.id %></td>
-          <td><%= customer.name %></td>
-          <td><%= customer.payment_type %></td>
-          <td><%= customer.payment_amount %></td>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Payment Type</th>
+          <th>Payment Amount</th>
         </tr>
-      <% }) %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% customers.forEach(customer => { %>
+          <tr>
+            <td><%= customer.id %></td>
+            <td><%= customer.name %></td>
+            <td><%= customer.payment_type %></td>
+            <td><%= customer.payment_amount %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+  </div>
 
 </body>
 </html>

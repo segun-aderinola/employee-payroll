@@ -21,6 +21,10 @@ app.use(flash());
 
 app.use('/employees', require('./routes/employees'));
 app.use('/customers', require('./routes/customer'));
+app.get("/", (req, res)=>{
+    res.render('home');
+});
+
 
 sequelize.sync().then(() => {
   app.listen(process.env.PORT, () => {
