@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Payroll</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <h1>Employee Payroll</h1>
+
+  <% if (success) { %>
+    <div class="alert alert-success"><%= success %></div>
+  <% } %>
+  <% if (error) { %>
+    <div class="alert alert-error"><%= error %></div>
+  <% } %>
+
+  <!-- Add New Employee Form -->
+  <h2>Add New Employee</h2>
+  <form method="POST" action="/employees/add">
+    <input type="text" name="name" placeholder="Employee Name" required>
+    <input type="email" name="email" placeholder="Employee Email" required>
+    <input type="number" name="salary" placeholder="Employee Salary" required>
+    <input type="text" name="department" placeholder="Employee Department" required>
+
+    <!-- Customer (Organization) Selection -->
+    <select name="customer_id" required>
+      <option value="">Select Customer</option>
+      <% allCustomers.forEach(customer => { %>
+        <option value="<%= customer.id %>"><%= customer.name %></option>
+      <% }) %>
+    </select>
+
+    <button type="submit">Add Employee</button>
+  </form>
+
+  <!-- Employee List Table -->
+  <h2>Employee List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Salary</th>
+        <th>Department</th>
+        <th>Customer</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% employees.forEach(employee => { %>
+        <tr>
+          <td><%= employee.id %></td>
+          <td><%= employee.name %></td>
+          <td><%= employee.email %></td>
+          <td><%= employee.salary %></td>
+          <td><%= employee.department %></td>
+          <td><%= employee.Customer ? employee.Customer.name : 'No Customer' %></td>
+          <td>
+            <!-- Pay button -->
+            <form method="POST" action="/employees/pay/<%= employee.id %>">
+              <button type="submit">Pay</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+</body>
+</html>
